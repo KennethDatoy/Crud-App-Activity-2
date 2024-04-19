@@ -101,26 +101,42 @@
 });
     
   },
-    deleteProduct(product) {
-      if (confirm("Are you sure you want to delete this product?")) {
-        // Fade out transition
-        const element = event.target.parentElement.parentElement;
-        element.style.transition = "opacity 0.5s ease";
-        element.style.opacity = 0;
-
-        // Remove the product from the list after transition
-        setTimeout(() => {
-          const index = this.products.findIndex(p => p.id === product.id);
-          if (index !== -1) {
-            this.products.splice(index, 1);
-          }
-        }, 500); // Wait for the transition to complete (500ms in this case)
-      }
-    },
-      editProductFromButton(product) {
-        // Triggered when the edit button is clicked
-        this.editProduct(product);
+  deleteProduct(product) {
+  Swal.fire({
+    title: 'Are you sure?',
+    text: 'You are about to delete this product. This action cannot be undone.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Confirm',
+    customClass: {
+      popup: 'animated tada' // Add your desired animation class here
     }
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Fade out transition
+      const element = event.target.parentElement.parentElement;
+      element.style.transition = "opacity 0.5s ease";
+      element.style.opacity = 0;
+
+      // Remove the product from the list after transition
+      setTimeout(() => {
+        const index = this.products.findIndex(p => p.id === product.id);
+        if (index !== -1) {
+          this.products.splice(index, 1);
+        }
+      }, 500); // Wait for the transition to complete (500ms in this case)
+
+      Swal.fire(
+        'Deleted!',
+        'Your product has been deleted.',
+        'success'
+      );
+    }
+  });
+}
+
       
     },
   };
