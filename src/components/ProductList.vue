@@ -85,7 +85,7 @@ export default {
         delete product.editedPrice;
       }
 
-      //try to push
+      //try to push this 
     },
     saveProduct(product) {
       // Update the original product data with the edited values
